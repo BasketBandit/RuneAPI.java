@@ -1,5 +1,5 @@
 # RuneAPI.java
-Java wrapper for the OSRS portion of the [RuneScape](https://oldschool.runescape.com/) API.
+Simple open source Java wrapper for the OSRS portion of the [RuneScape](https://oldschool.runescape.com/) API.
 
 ## Class Data
 
@@ -14,12 +14,22 @@ Java wrapper for the OSRS portion of the [RuneScape](https://oldschool.runescape
 ### Get
 
 **Stats** - Retrieve the stats stored about the provided player.
-```java
-List<Skill> stats = RuneAPI.getStats(username);
 
-for(Skill skill: stats) {
+**#1** - Loop all skills and print their data.
+```java
+Map<String, Skill> stats = RuneAPI.getStats(username);
+
+for(Skill skill: stats.values()) {
     System.out.printf("%s - %,d - %,d - %,d \n", skill.getName(), skill.getRank(), skill.getLevel(), skill.getExperience());
 }
+```
+
+**#2** - Find specific skill and print its data.
+```java
+Map<String, Skill> stats = RuneAPI.getStats(username);
+Skill overall = stats.get("Overall");
+
+System.out.printf("%s - %,d - %,d - %,d \n", overall.getName(), overall.getRank(), overall.getLevel(), overall.getExperience());
 ```
 
 ## Download
