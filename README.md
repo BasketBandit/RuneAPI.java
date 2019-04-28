@@ -18,7 +18,7 @@ Java wrapper for the OSRS portion of the [RuneScape](https://oldschool.runescape
 List<Skill> stats = RuneAPI.getStats(username);
 
 for(Skill skill: stats) {
-    System.out.println(skill.getName() + " - " + skill.getLevel());
+    System.out.printf("%s - %,d - %,d - %,d \n", skill.getName(), skill.getRank(), skill.getLevel(), skill.getExperience());
 }
 ```
 
