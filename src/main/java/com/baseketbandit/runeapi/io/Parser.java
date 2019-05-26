@@ -13,16 +13,14 @@ class Parser {
      * @return Map<String, Skill> HashMap of objects of type Skill
      */
     static Map<String, Skill> parseStats(String data) {
-        List<Enum> skillNames = Arrays.asList(Skill.Name.values());
+        List<Enum> names = Arrays.asList(Skills.values());
         Map<String, Skill> skills = new HashMap<>();
-        String[] rawSkill = data.split("\n");
+        String[] raw = data.split("\n");
 
-        int i = 0;
-        for(String raw: rawSkill) {
-            if(i < Skill.Name.values().length) {
-                String[] r = raw.split(",");
-                skills.put(skillNames.get(i).name(), new Skill(skillNames.get(i).name(), Integer.parseInt(r[0]), Integer.parseInt(r[1]), Integer.parseInt(r[2])));
-                i++;
+        for(int i = 0; i < raw.length; i++) {
+            if(i < Skills.values().length) {
+                String[] r = raw[i].split(",");
+                skills.put(names.get(i).name(), new Skill(names.get(i).name(), Integer.parseInt(r[0]), Integer.parseInt(r[1]), Integer.parseInt(r[2])));
                 continue;
             }
             break;

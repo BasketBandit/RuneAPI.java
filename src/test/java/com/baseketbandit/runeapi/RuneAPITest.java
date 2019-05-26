@@ -41,4 +41,11 @@ public class RuneAPITest {
         Skill cooking = stats.get("Cooking");
         System.out.println(cooking.getLevel());
     }
+
+    @Test
+    public void getStatsMappedLowercase() {
+        Map<String, Skill> stats = RuneAPI.getStats("xwr");
+        Skill cooking = stats.get("Cooking");
+        System.out.println(cooking.getLevel());
+    }
 }

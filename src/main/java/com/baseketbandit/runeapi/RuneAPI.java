@@ -8,6 +8,6 @@ import java.util.Map;
 public class RuneAPI {
 
     public static Map<String, Skill> getStats(String username) {
-        return RequestHandler.doRequest(username.replace(" ", "%20"));
+        return RequestHandler.doGetRequest(username.replace(" ", "%20"));
     }
 }
