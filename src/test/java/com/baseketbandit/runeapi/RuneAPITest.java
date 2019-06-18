@@ -1,35 +1,36 @@
 package com.baseketbandit.runeapi;
 
 import com.baseketbandit.runeapi.entity.Skill;
+import com.baseketbandit.runeapi.entity.Type;
 import org.junit.Test;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 public class RuneAPITest {
 
     @Test
     public void getStats() {
-        Map<String, Skill> stats = RuneAPI.getStats("xwr");
+        Map<Type, Skill> stats = RuneAPI.getStats("xwr");
+        assert(!stats.isEmpty());
+        assert(stats.size() == 24);
+
         for(Skill skill: stats.values()) {
-            System.out.println(skill.getName() + " - " + skill.getLevel());
+            System.out.printf("%s: #%,d - %,d - %,dxp \n", skill.getName(), skill.getRank(), skill.getLevel(), skill.getExperience());
         }
     }
 
     @Test
     public void getStatsNotFound() {
-        Map<String, Skill> stats = RuneAPI.getStats("abcdefghijklmnopqrstuvwxyz");
-        for(Skill skill: stats.values()) {
-            System.out.println(skill.getName() + " - " + skill.getLevel());
-        }
+        Map<Type, Skill> stats = RuneAPI.getStats("abcdefghijklmnopqrstuvwxyz");
+        assert(stats.isEmpty());
     }
 
     @Test
     public void getStatsNameSpace() {
-        Map<String, Skill> stats = RuneAPI.getStats("Iron Lewiso");
+        Map<Type, Skill> stats = RuneAPI.getStats("Iron Lewiso");
+        assert(!stats.isEmpty());
+        assert(stats.size() == 24);
+
         for(Skill skill: stats.values()) {
             System.out.println(skill.getName() + " - " + skill.getLevel());
         }
@@ -37,15 +38,13 @@ public class RuneAPITest {
 
     @Test
     public void getStatsMapped() {
-        Map<String, Skill> stats = RuneAPI.getStats("xwr");
-        Skill cooking = stats.get("Cooking");
-        System.out.println(cooking.getLevel());
-    }
+        Map<Type, Skill> stats = RuneAPI.getStats("xwr");
+        assert(!stats.isEmpty());
+        assert(stats.size() == 24);
 
-    @Test
-    public void getStatsMappedLowercase() {
-        Map<String, Skill> stats = RuneAPI.getStats("xwr");
-        Skill cooking = stats.get("Cooking");
+        Skill cooking = stats.get(Type.COOKING);
+        assert(!cooking.getName().equals(""));
+
         System.out.println(cooking.getLevel());
     }
 }

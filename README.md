@@ -17,19 +17,19 @@ Simple open source Java wrapper for the OSRS portion of the [RuneScape](https://
 
 **#1** - Loop all skills and print their data.
 ```java
-Map<String, Skill> stats = RuneAPI.getStats(username);
+Map<Type, Skill> stats = RuneAPI.getStats(username);
 
 for(Skill skill: stats.values()) {
-    System.out.printf("%s - %,d - %,d - %,d \n", skill.getName(), skill.getRank(), skill.getLevel(), skill.getExperience());
+    System.out.printf("%s: #%,d - %,d - %,dxp \n", skill.getName(), skill.getRank(), skill.getLevel(), skill.getExperience());
 }
 ```
 
 **#2** - Find specific skill and print its data.
 ```java
-Map<String, Skill> stats = RuneAPI.getStats(username);
-Skill overall = stats.get("Overall");
+Map<Type, Skill> stats = RuneAPI.getStats(username);
+Skill overall = stats.get(Type.OVERALL);
 
-System.out.printf("%s - %,d - %,d - %,d \n", overall.getName(), overall.getRank(), overall.getLevel(), overall.getExperience());
+System.out.printf("%s: #%,d - %,d - %,dxp \n", overall.getName(), overall.getRank(), overall.getLevel(), overall.getExperience());
 ```
 
 ## Download

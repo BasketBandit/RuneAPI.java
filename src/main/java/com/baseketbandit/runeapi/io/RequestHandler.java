@@ -20,9 +20,9 @@ public class RequestHandler {
      * A OkHttp method used to connect to and return a HashMap of data from the server.
      *
      * @param username the username to do the request against
-     * @return Map<String, Skill> HashMap of objects of type Skill or an `empty` map if no results are found.
+     * @return Map<Type, Skill> Map of objects of type Skill or an `empty` map if no results are found.
      */
-    public static Map<String, Skill> doGetRequest(String username) {
+    public static Map<Type, Skill> doGetRequest(String username) {
         try {
             Request request = new Request.Builder()
                     .url(API_BASE + username)
@@ -30,7 +30,7 @@ public class RequestHandler {
             Response response = client.newCall(request).execute();
 
             if(response.code() != 200) {
-                log.error(response.code() + " - No results found for username `" + username.replace("%20", " ") + "`");
+                log.error(response.code() + ": No results found for username `" + username.replace("%20", " ") + "`");
                 response.close();
                 return new HashMap<>();
             }

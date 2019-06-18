@@ -1,13 +1,12 @@
 package com.baseketbandit.runeapi.entity;
 
 public class Skill {
-
-    private final String name;
+    private final Type name;
     private final int rank;
     private final int level;
     private final int experience;
 
-    public Skill(String name, int rank, int level, int experience) {
+    public Skill(Type name, int rank, int level, int experience) {
         this.name = name;
         this.rank = rank;
         this.level = level;
@@ -15,7 +14,7 @@ public class Skill {
     }
 
     public String getName() {
-        return name;
+        return name.name;
     }
 
     public int getRank() {
