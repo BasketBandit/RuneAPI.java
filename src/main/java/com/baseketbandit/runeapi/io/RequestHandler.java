@@ -25,7 +25,7 @@ public class RequestHandler {
     public static Map<Type, Skill> doGetRequest(String username) {
         try {
             Request request = new Request.Builder()
-                    .url(API_BASE + username)
+                    .url(API_BASE + username.replace(" ", "%20"))
                     .build();
             Response response = client.newCall(request).execute();
 
