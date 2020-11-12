@@ -8,7 +8,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RequestHandler {
@@ -17,36 +20,47 @@ public class RequestHandler {
     private static final String API_BASE = "https://secure.runescape.com/m=hiscore_oldschool/index_lite.ws?player=";
 
     /**
-     * A OkHttp method used to connect to and return a HashMap of data from the server.
+     * Connect to and return a HashMap of data from the RuneScape servers.
      *
      * @param username the username to do the request against
      * @return Map<Type, Skill> Map of objects of type Skill or an `empty` map if no results are found.
      */
-    public static Map<Type, Skill> doGetRequest(String username) {
-        try {
-            Request request = new Request.Builder()
-                    .url(API_BASE + username.replace(" ", "%20"))
-                    .build();
-            Response response = client.newCall(request).execute();
+    public Map<String, Skill> fetchSkillData(String username) {
+        final Request request = new Request.Builder().url(API_BASE + username).build();
 
-            if(response.code() != 200) {
-                log.error(response.code() + ": No results found for username `" + username.replace("%20", " ") + "`");
-                response.close();
-                return new HashMap<>();
+        try(Response response = client.newCall(request).execute()){
+
+            if(response.code() == 200 && response.body() != null) {
+                return parseStats(response.body().string());
             }
 
-            if(response.body() == null) {
-                response.close();
-                return new HashMap<>();
+            if(response.code() != 200 || response.body() == null) {
+                log.error("{}: No results found for username `{}`", response.code(), username);
             }
 
-            final String data = response.body().string();
-            response.close();
-
-            return Parser.parseStats(data);
         } catch(IOException e) {
-            log.error("There was a problem processing that request. [Highscores OSRS]");
-            return new HashMap<>();
+            log.error("There was a problem processing that request: {}", e.getCause(), e);
         }
+
+        return new HashMap<>();
+    }
+
+    /**
+     * Breaks down raw data from the API to a hash map of Skill objects.
+     *
+     * @param data raw data from the RuneScape API
+     * @return Map<String, Skill> Map of objects of type Skill
+     */
+    private Map<String, Skill> parseStats(String data) {
+        List<String> skills = Skills.asList;
+        String[] skillData = data.split("\n");
+        HashMap<String, Skill> skillMap = new HashMap<>();
+
+        for(int i = 0; i < skills.size(); i++) {
+            String[] r = skillData[i].split(",");
+            skillMap.put(skills.get(i), new Skill(skills.get(i), Integer.parseInt(r[0]), Integer.parseInt(r[1]), Integer.parseInt(r[2])));
+        }
+
+        return skillMap;
     }
 }

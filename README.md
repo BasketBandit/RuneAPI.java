@@ -13,24 +13,27 @@ Simple open source Java wrapper for the OSRS portion of the [RuneScape](https://
 
 ### Get
 
-**Stats** - Retrieve the stats stored about the provided player.
-
-**#1** - Loop all skills and print their data.
+**#1** - Loop through all skills and print the data.
 ```java
-Map<Type, Skill> stats = RuneAPI.getStats(username);
+Map<String, Skill> skills = RuneAPI.getStats(username);
 
-for(Skill skill: stats.values()) {
+for(Skill skill: skills.values()) {
     System.out.printf("%s: #%,d - %,d - %,dxp \n", skill.getName(), skill.getRank(), skill.getLevel(), skill.getExperience());
 }
 ```
 
-**#2** - Find specific skill and print its data.
+**#2** - Find specific skill and print the data.
 ```java
-Map<Type, Skill> stats = RuneAPI.getStats(username);
-Skill overall = stats.get(Type.OVERALL);
+Map<String, Skill> skills = RuneAPI.getStats(username);
+Skill overall = skills.get(Skills.OVERALL);
 
 System.out.printf("%s: #%,d - %,d - %,dxp \n", overall.getName(), overall.getRank(), overall.getLevel(), overall.getExperience());
 ```
+
+### Interface
+Provided is an interface class which contains both a ```List<String>``` of all skill names accessed via ```Skills.asList```, 
+and each individual skill ```String``` accessed via the skills name, e.g ```Skills.COOKING```. 
+This allows you to access a skill map without fear of mistyping the name of a skill. An example using this interface is given above.
 
 ## Download
 
