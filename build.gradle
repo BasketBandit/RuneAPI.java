@@ -6,7 +6,7 @@ apply plugin: 'java'
 apply plugin: 'idea'
 
 group 'BasketBandit'
-version '0.1.3'
+version '0.1.4'
 
 sourceCompatibility = 1.11
 
@@ -23,7 +23,7 @@ test {
 
 dependencies {
     compile group: 'org.slf4j', name: 'slf4j-simple', version: '2.0.0-alpha1'
-    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.2.1'
+    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.10.0-RC1'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
