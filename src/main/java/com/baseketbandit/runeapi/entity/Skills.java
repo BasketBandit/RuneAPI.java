@@ -6,7 +6,7 @@ import java.util.List;
 public interface Skills {
     String OVERALL = "Overall";
     String ATTACK = "Attack";
-    String DEFENSE = "Defense";
+    String DEFENCE = "Defence";
     String STRENGTH = "Strength";
     String HITPOINTS = "Hitpoints";
     String RANGED = "Ranged";
@@ -29,5 +29,5 @@ public interface Skills {
     String HUNTER = "Hunter";
     String CONSTRUCTION = "Construction";
 
-    List<String> asList = Arrays.asList(OVERALL, ATTACK, DEFENSE, STRENGTH, HITPOINTS, RANGED, PRAYER, MAGIC, COOKING, WOODCUTTING, FLETCHING, FISHING, FIREMAKING, CRAFTING, SMITHING, MINING, HERBLORE, AGILITY, THIEVING, SLAYER, FARMING, RUNECRAFT, HUNTER, CONSTRUCTION);
+    List<String> asList = Arrays.asList(OVERALL, ATTACK, DEFENCE, STRENGTH, HITPOINTS, RANGED, PRAYER, MAGIC, COOKING, WOODCUTTING, FLETCHING, FISHING, FIREMAKING, CRAFTING, SMITHING, MINING, HERBLORE, AGILITY, THIEVING, SLAYER, FARMING, RUNECRAFT, HUNTER, CONSTRUCTION);
 }
