@@ -25,17 +25,10 @@ public class RequestHandler {
      */
     public Map<String, Skill> fetchSkillData(String username) {
         final Request request = new Request.Builder().url(API_BASE + username).build();
-
         try(Response response = client.newCall(request).execute()){
-
             if(response.code() == 200 && response.body() != null) {
                 return parseStats(response.body().string());
             }
-
-            if(response.code() != 200 || response.body() == null) {
-                log.error("{}: No results found for username `{}`", response.code(), username);
-            }
-
         } catch(IOException e) {
             log.error("There was a problem processing that request: {}", e.getCause(), e);
         }
